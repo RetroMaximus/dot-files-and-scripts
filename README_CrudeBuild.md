@@ -44,7 +44,7 @@ Basic Usage
 
 Running the Script
 
-bash CrudePyBuild.sh <path_to_entry_point.py> <entry_point_name>
+bash CrudePyBuild.sh <entry_point_name> <path_to_entry_point.py>
 
 Example
 

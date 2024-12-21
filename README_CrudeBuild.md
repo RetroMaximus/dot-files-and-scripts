@@ -14,39 +14,39 @@ Output Handling: Provides options to move, copy, or skip the built binary’s re
 
 Simplicity: Handles complex tasks with minimal user input.
 
-How It Works
+- How It Works
 
-- Initialization:
+-- Initialization:
 
 Automatically captures the project directory, entry point, and desired output name from the provided arguments.
 
 Logs the build start time for easy tracking.
 
-Setup:
+-- Setup:
 
 Creates a .venv directory for virtual environment isolation.
 
 Installs PyInstaller and all dependencies specified in requirements.txt.
 
-Build Process:
+-- Build Process:
 
 Generates a standalone binary using PyInstaller with OS-specific configurations.
 
 Supports hidden imports for Windows (e.g., win32security, win32gui).
 
-Post-Build Options:
+-- Post-Build Options:
 
 Prompts the user to move, copy, or skip the relocation of the binary.
 
 Sets executable permissions for easy execution.
 
-Basic Usage
+- Basic Usage
 
-Running the Script
+-- Running the Script
 
 bash crudepybuild.sh <entry_point_name> <path_to_entry_point.py>
 
-Example
+-- Example
 
 bash crudepybuild.sh /home/user/myproject/myapp.py myapp.py
 
@@ -100,7 +100,7 @@ Linux Mint users may need to enable and use the venv module to install required 
 
 The script assumes requirements.txt is present in the project directory for dependency management.
 
-License
+- License
 
 CrudePyBuild is released under the MIT License. Feel free to use and modify it to suit your needs.
 

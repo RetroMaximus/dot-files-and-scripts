@@ -16,7 +16,7 @@ Simplicity: Handles complex tasks with minimal user input.
 
 How It Works
 
-Initialization:
+- Initialization:
 
 Automatically captures the project directory, entry point, and desired output name from the provided arguments.
 
@@ -44,11 +44,11 @@ Basic Usage
 
 Running the Script
 
-bash CrudePyBuild.sh <entry_point_name> <path_to_entry_point.py>
+bash crudepybuild.sh <entry_point_name> <path_to_entry_point.py>
 
 Example
 
-bash CrudePyBuild.sh /home/user/myproject/myapp.py myapp.py
+bash crudepybuild.sh /home/user/myproject/myapp.py myapp.py
 
 Output
 
@@ -58,28 +58,16 @@ Copy: Copies the binary to /usr/local/bin for global execution.
 
 Skip: Leaves the binary in the dist directory within the project.
 
-Installing the Script Globally
 
-To allow the script to be called from anywhere on the system:
-
-Move the script to /usr/local/bin:
-
-sudo mv CrudePyBuild.sh /usr/local/bin/CrudePyBuild
-sudo chmod +x /usr/local/bin/CrudePyBuild
-
-Now you can call the script from any directory:
-
-CrudePyBuild <path_to_entry_point.py> <entry_point_name>
-
-Installing the Script for a Single User
+- Installing the Script for a Single User
 
 To make the script available for the current user only:
 
 Move the script to ~/bin:
 
 mkdir -p ~/bin
-mv CrudePyBuild.sh ~/bin/CrudePyBuild
-chmod +x ~/bin/CrudePyBuild
+mv crudepybuild.sh ~/bin/crudepybuild
+chmod +x ~/bin/crudepybuild
 
 Add ~/bin to your PATH if it is not already included:
 
@@ -88,9 +76,23 @@ source ~/.bashrc
 
 You can now call the script from any directory:
 
-CrudePyBuild <path_to_entry_point.py> <entry_point_name>
+crudepybuild <path_to_entry_point.py> <entry_point_name>
 
-Notes
+
+- Installing the Script Globally
+
+To allow the script to be called from anywhere on the system:
+
+Move the script to /usr/local/bin:
+
+sudo mv crudepybuild.sh /usr/local/bin/crudepybuild
+sudo chmod +x /usr/local/bin/crudepybuild
+
+Now you can call the script from any directory:
+
+crudepybuild <path_to_entry_point.py> <entry_point_name>
+
+- Notes
 
 Ensure Python 3.6+ is installed and accessible on your system.
 

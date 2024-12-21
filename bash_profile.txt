@@ -37,7 +37,7 @@ fi
 # fi
 
 export DEVBASE="b:/streamprojects"
-export PATH="c:/Users/RFPSystems/AppData/Local/Programs/Python/Python312:$PATH"
+export PATH="c:/Users/MyAccount/AppData/Local/Programs/Python/Python312:$PATH"
 
 
 #### Start of Crude Tweaks

@@ -106,8 +106,6 @@ if [ "${USERECURSIVEDELETE:-0}" -eq 1 ]; then
   fi
 fi
 
-
-
 # Changes inital starting directory.
 cd $INITALDIR
 

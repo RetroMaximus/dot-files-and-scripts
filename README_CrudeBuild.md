@@ -48,7 +48,7 @@ bash crudepybuild.sh <entry_point_name> <path_to_entry_point.py>
 
 -- Example
 
-bash crudepybuild.sh /home/user/myproject/myapp.py myapp.py
+bash crudepybuild.sh myapp.py /home/user/myproject/myapp.py
 
 Output
 

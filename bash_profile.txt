@@ -1,0 +1,114 @@
+# To the extent possible under law, the author(s) have dedicated all 
+# copyright and related and neighboring rights to this software to the 
+# public domain worldwide. This software is distributed without any warranty. 
+# You should have received a copy of the CC0 Public Domain Dedication along 
+# with this software. 
+# If not, see <https://creativecommons.org/publicdomain/zero/1.0/>. 
+
+# ~/.bash_profile: executed by bash(1) for login shells.
+
+# The copy in your home directory (~/.bash_profile) is yours, please
+# feel free to customise it to create a shell
+# environment to your liking.  If you feel a change
+# would be benifitial to all, please feel free to send
+# a patch to the msys2 mailing list.
+
+# User dependent .bash_profile file
+
+# source the users bashrc if it exists
+if [ -f "${HOME}/.bashrc" ] ; then
+  source "${HOME}/.bashrc"
+  echo "Sourced alias's from .bashrc"
+fi
+
+# Set PATH so it includes user's private bin if it exists
+# if [ -d "${HOME}/bin" ] ; then
+#   PATH="${HOME}/bin:${PATH}"
+# fi
+
+# Set MANPATH so it includes users' private man if it exists
+# if [ -d "${HOME}/man" ]; then
+#   MANPATH="${HOME}/man:${MANPATH}"
+# fi
+
+# Set INFOPATH so it includes users' private info if it exists
+# if [ -d "${HOME}/info" ]; then
+#   INFOPATH="${HOME}/info:${INFOPATH}"
+# fi
+
+export DEVBASE="b:/streamprojects"
+export PATH="c:/Users/RFPSystems/AppData/Local/Programs/Python/Python312:$PATH"
+
+
+#### Start of Crude Tweaks
+
+# Uncomment to use the terminal colours set in DIR_COLORS
+eval "$(dircolors -b /etc/DIR_COLORS)"
+
+# Set the inital starting directory.
+export INITALDIR='/b/streamprojects'
+
+# Insert a timestamp above each input request.
+USETIMESTAMP=1
+
+# If you are connected to git 
+# a branch can be displayed by setting this = 1
+
+SHOWGITBRANCH=0
+
+# Display types
+
+# Display types are as follows
+# 0 = DEFAULTPS1 - displays default PS1
+# 1 = USRHOME - Shows the user and system
+# 2 = MINIMUM - Current directory is labeled as such
+# 3 = BAREMIN - No Environment details only the current path.
+
+DISPLAY_TYPE=3
+
+# Delete a directory and all of its contents including sub-directories and there contents recusivly.
+# Use "redir undo" to restore the last deleted dir.
+
+USERECURSIVEDELELTE=1
+
+# Use file colors
+eval "$(dircolors -b /etc/DIR_COLORS)"
+
+# Some example alias instructions
+# If these are enabled they will be used instead of any instructions
+# they may mask.  For example, alias rm='rm -i' will mask the rm
+# application.  To override the alias instruction use a \ before, ie
+# \rm will call the real rm not the alias.
+
+# Some shortcuts for different directory listings
+echo "Sourcing alias's from .bashrc"
+alias ls="ls -ahCF --color=auto -1"              # classify files in colour
+alias dir='ls -al --color=auto --format=vertical'
+alias vdir='ls -al --color=auto --format=long'
+alias ll='ls -l'     				 # long list
+alias la='ls -A'     				 # all but . and ..
+alias l='ls -CF'
+alias rn="mv -i"        # MSYS equivilant of rename simply use "mv location\source.name location\dest.name"
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Source the prompt display options script if it exists
+if [ -f ~/.bashrc.d/prompt_display_options.sh ]; then
+  . ~/.bashrc.d/prompt_display_options.sh
+fi
+
+# Check if USERECURSIVEDELETE is set and has a valid value before comparing
+if [ "${USERECURSIVEDELETE:-0}" -eq 1 ]; then
+  # Source the recursive directory delete script if it exists
+  if [ -f ~/.bashrc.d/recursive_dir_delete.sh ]; then
+    . ~/.bashrc.d/recursive_dir_delete.sh
+    alias redir=recursive_dir_del
+  fi
+fi
+
+
+
+# Changes inital starting directory.
+cd $INITALDIR
+
+#### End of Crude Tweaks

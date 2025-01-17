@@ -105,9 +105,9 @@ case $CHOICE in
     ;;
   3)
     echo ""
-    echo "Move and Copy have been skipped. Binary can be located here: $PROJECT_DIR/$BINARY_PATH"
-    echo "Setting executable permissions for $PROJECT_DIR/$BINARY_PATH"
-    sudo chmod +x "$PROJECT_DIR/$BINARY_PATH"
+    echo "Move and Copy have been skipped. Binary can be located here: $BINARY_PATH"
+    echo "Setting executable permissions for $BINARY_PATH"
+    sudo chmod +x "$BINARY_PATH"
     echo ""
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     echo "Done! execute the application in its binary directory by typing: '$OUTPUT_NAME'."
@@ -115,9 +115,9 @@ case $CHOICE in
     ;;
   *)
     echo ""
-    echo "Invalid choice. No action taken. Binary can be located here: $PROJECT_DIR/$BINARY_PATH"
-    echo "Setting executable permissions for $PROJECT_DIR/$BINARY_PATH"
-    sudo chmod +x "$PROJECT_DIR/$BINARY_PATH"
+    echo "Invalid choice. No action taken. Binary can be located here: $BINARY_PATH"
+    echo "Setting executable permissions for $BINARY_PATH"
+    sudo chmod +x "$BINARY_PATH"
     echo ""
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     echo "Done! execute the application in its binary directory by typing: '$OUTPUT_NAME'."

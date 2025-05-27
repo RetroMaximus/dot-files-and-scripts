@@ -40,28 +40,6 @@ recursive_dir_del () {
         DIR_PATH="$1"
     fi
 
-
-
-    if [ ! -d "$DIR_PATH" ]; then
-        echo "Specified directory does not exist."
-        return 1
-    fi
-
-    # Purge RESTOREDIR contents if -p flag is set
-    if [ "$PURGE" -eq 1 ]; then
-        read -p "Are you sure you want to purge RESTOREDIR? [y/N]: " response
-        case "$response" in
-            [yY])
-                find "$RESTOREDIR" -mindepth 1 -not -name "RESTORELOCATION" -exec rm -rf {} +
-                echo "RESTOREDIR has been purged."
-                ;;
-            *) 
-                echo "Purge cancelled."
-                ;;
-        esac
-        return 0
-    fi
-
     # Function to recursively move files/directories to RESTOREDIR
     move_to_restore_dir() {
         local src="$1"
@@ -94,6 +72,29 @@ recursive_dir_del () {
             echo "Directory $src was not moved due to skipped files."
         fi
     }
+
+    if [ ! -d "$DIR_PATH" ]; then
+        echo "Specified directory does not exist."
+        return 1
+    fi
+
+    # Purge RESTOREDIR contents if -p flag is set
+    if [ "$PURGE" -eq 1 ]; then
+        read -p "Are you sure you want to delete this directory and then purge RESTOREDIR? [y/N]: " response
+        case "$response" in
+            [yY])
+		move_to_restore_dir "$DIR_PATH"
+                find "$RESTOREDIR" -mindepth 1 -not -name "RESTORELOCATION" -exec rm -rf {} +
+                echo "RESTOREDIR has been purged."
+                ;;
+            *) 
+                echo "Purge cancelled."
+                ;;
+        esac
+        return 0
+    fi
+
+    
 
     # Prompt the user if no flags are provided
     if [ "$CONFIRM" -eq 0 ]; then

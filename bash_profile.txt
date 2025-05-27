@@ -69,7 +69,7 @@ DISPLAY_TYPE=3
 # Delete a directory and all of its contents including sub-directories and there contents recusivly.
 # Use "redir undo" to restore the last deleted dir.
 
-USERECURSIVEDELELTE=1
+USERECURSIVEDELETE=1
 
 # Use file colors
 eval "$(dircolors -b /etc/DIR_COLORS)"

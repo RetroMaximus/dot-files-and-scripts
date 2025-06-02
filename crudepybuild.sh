@@ -1,22 +1,28 @@
 #!/bin/bash
+
+# Configuration
+
 timestamp=$(date "+%Y-%m-%d %H:%M:%S")
 PROJECT_DIR="$(pwd)"
 NEW_ENTRY="$1"
 ENTRY_POINT="$2"
-OUTPUT_NAME=$(basename "$NEW_ENTRY" .py) 
-SPEC_PATH=$(basename "$NEW_ENTRY" .spec) 
+APP_TYPE=${3:-terminal}  # Set to "gui" for graphical apps or "terminal" for console apps
+OUTPUT_NAME=$(basename "$NEW_ENTRY" .py)
+SPEC_PATH=$(basename "$NEW_ENTRY" .spec)
 FINAL_DIST_PATH="usr/local/bin/$OUTPUT_NAME"
 DIST_PATH="$PROJECT_DIR/dist"
+OS_TYPE=$(uname -s)
 echo ""
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "CrudePyBuild v0.0.1"
 echo "Build started: $timestamp"
 echo ""
 echo "Build process for $OUTPUT_NAME has started."
+echo "Application Type: $APP_TYPE"
 echo "Entry Point: $ENTRY_POINT"
 echo "Project Dir: $PROJECT_DIR"
+echo "$OS_TYPE"
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-#Linux Mint users might have to enable and venv to install packages
 
 # Check if .venv exists, if not, create it
 if [ ! -d ".venv" ]; then
@@ -28,17 +34,19 @@ fi
 echo ""
 echo "Activating virtual environment..."
 source .venv/bin/activate
-. .venv/bin/activate
+
 echo ""
 echo "Installing PyInstaller..."
 pip install pyinstaller --quiet
+
 echo ""
 echo "Freezing Required Modules"
-pip freeze requirements.txt --quiet
+pip freeze > requirements.txt
+
 echo ""
 echo "Checking Requirements"
-pip install -r requirements.txt 
-echo ""
+pip install -r requirements.txt --quiet
+
 if [ ! -d "$PROJECT_DIR/build" ]; then
     echo "Creating '$PROJECT_DIR/build'"
     mkdir "$PROJECT_DIR/build"
@@ -52,21 +60,35 @@ fi
 echo ""
 echo "Building binary with PyInstaller..."
 
-# pyinstaller $SPEC_PATH --onefile "$PROJECT_DIR/$ENTRY_POINT"
+# Determine PyInstaller flags based on application type
+PYINSTALLER_FLAGS="--specpath $PROJECT_DIR/$SPEC_PATH --distpath $DIST_PATH --onefile"
 
-OS_TYPE=$(uname -s)
-if [[ "$OS_TYPE" == "Linux" ]]; then
-  echo ""
-  echo "Building for Linux..."
-  pyinstaller --specpath "$PROJECT_DIR/$SPEC_PATH" --hidden-import win32security --hidden-import win32gui --distpath "$DIST_PATH" --onefile "$PROJECT_DIR/$ENTRY_POINT"
-elif [[ "$OS_TYPE" == "MINGW"* || "$OS_TYPE" == "CYGWIN"* ]]; then
-  echo ""
-  echo "Building for Windows..."
-  pyinstaller --specpath "$PROJECT_DIR/$SPEC_PATH" --distpath "$DIST_PATH" --onefile "$PROJECT_DIR/$ENTRY_POINT"
+if [ "$APP_TYPE" = "gui" ]; then
+    echo "Configuring build for GUI application..."
+    echo "$OS_TYPE"
+    if [[ "$OS_TYPE" == "MINGW"* || "$OS_TYPE" == "CYGWIN"* ]]; then
+        PYINSTALLER_FLAGS="$PYINSTALLER_FLAGS --windowed --noconsole"
+    else
+        PYINSTALLER_FLAGS="$PYINSTALLER_FLAGS --windowed"
+    fi
 else
-  echo ""
-  echo "Unsupported OS: $OS_TYPE"
-  exit 1
+    echo "Configuring build for terminal application..."
+fi
+
+if [[ "$OS_TYPE" == "Linux" ]]; then
+    echo ""
+    echo "Building for Linux..."
+    pyinstaller $PYINSTALLER_FLAGS "$PROJECT_DIR/$ENTRY_POINT"
+elif [[ "$OS_TYPE" == "MINGW"* || "$OS_TYPE" == "CYGWIN"* ]]; then
+    echo ""
+    echo "Building for Windows..."
+    PYINSTALLER_FLAGS="$PYINSTALLER_FLAGS --hidden-import win32security --hidden-import win32gui --hidden-import win32timezone"
+    # For Windows, we need to handle paths differently
+    pyinstaller $(echo $PYINSTALLER_FLAGS) "$PROJECT_DIR/$ENTRY_POINT"
+else
+    echo ""
+    echo "Unsupported OS: $OS_TYPE"
+    exit 1
 fi
 
 BINARY_PATH="$DIST_PATH/$OUTPUT_NAME"
@@ -122,7 +144,6 @@ case $CHOICE in
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
     echo "Done! execute the application in its binary directory by typing: '$OUTPUT_NAME'."
     echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-
     ;;
 esac
 

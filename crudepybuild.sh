@@ -194,7 +194,7 @@ fi
 echo ""
 echo "Building binary with PyInstaller..."
 
-PYINSTALLER_FLAGS="--specpath $PROJECT_DIR/$SPEC_PATH --distpath $DIST_PATH --onefile"
+PYINSTALLER_FLAGS="--specpath $PROJECT_DIR/$SPEC_PATH --distpath $DIST_PATH --onefile --name $NEW_ENTRY"
 
 if [ "$APP_TYPE" = "gui" ]; then
     echo "Configuring build for GUI application..."

@@ -1,0 +1,26 @@
+Git update process.
+
+Initialize a new git repo.
+
+git init
+git add README.md
+git commit -m "Initial Commit"
+git branch -m main
+git remote add origin git@github.com:RetroMaximus/crudeirc.git
+git push -u origin main
+
+Initailize a existing git repo
+
+git remote add origim https://github.com/RetroMaximus/crudeird.git
+git branch -m main
+git push-u origin main
+
+Stage all files
+
+git add -A         # Stage all changes (new, modified, deleted files)
+git commit -m "Your commit message here"
+
+Stage a single file
+
+git add path/to/your/file # Stage the specific file
+git commit -m "Your commit message for the specific file"

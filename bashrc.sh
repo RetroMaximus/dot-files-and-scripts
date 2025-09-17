@@ -3,7 +3,7 @@
 
 
 
-~/.config/terminal_type/tt_config.sh
+# ~/.config/terminal_type/tt_config.sh
 
 #!/bin/bash
 # Terminal Type Configuration
@@ -21,7 +21,7 @@ DEFAULT_SELECTION="1"
 
 
 
-~/.config/terminal_type/tt_functions.sh
+# ~/.config/terminal_type/tt_functions.sh
 
 #!/bin/bash
 # Terminal Type Functions
@@ -228,7 +228,7 @@ handle_menu_selection() {
 
 
 
-Add to the bottom on ~/.bashrc
+# Add to the bottom on ~/.bashrc
 
 
 
